@@ -48,30 +48,30 @@
 function minPlanesToReachDestination(fuelArray) {
     let n = fuelArray.length;
 
-    if (n <= 1) return 0; 
-    if (fuelArray[0] === 0) return -1; 
+    if (n <= 1) return 0; // Already at last airport
+    if (fuelArray[0] === 0) return -1; // Can't move from first airport
 
-    let maxReach = fuelArray[0]; 
-    let steps = fuelArray[0];    
-    let planes = 1;              
+    let maxReach = fuelArray[0]; // How far can go
+    let steps = fuelArray[0];    // Steps left with current plane
+    let planes = 1;              // Plane hired at airport 1
 
     for (let i = 1; i < n; i++) {
-        if (i === n - 1) return planes; 
+        if (i === n - 1) return planes; // Reached last airport
 
-        maxReach = Math.max(maxReach, i + fuelArray[i]); 
-        steps--; 
+        maxReach = Math.max(maxReach, i + fuelArray[i]); // Update how far we can go
+        steps--; // Used one step
 
-        if (steps === 0) { 
+        if (steps === 0) { // Need new plane
             planes++;
 
-            if (i >= maxReach) return -1; 
+            if (i >= maxReach) return -1; // Can't move further
 
-            steps = maxReach - i
+            steps = maxReach - i; // New steps with new plane
         }
     }
 
-    return -1; 
+    return -1; // If can't reach last airport
 }
 
-console.log(minPlanesToReachDestination([2,1,2,3,1])); 
+console.log(minPlanesToReachDestination([1,6,3,4,5,0,0,0,6])); 
 
